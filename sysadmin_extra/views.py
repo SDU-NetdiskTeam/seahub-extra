@@ -17,7 +17,7 @@ from seahub.auth.decorators import login_required
 from seahub_extra.sysadmin_extra.models import UserLoginLog
 from seahub.utils import EVENTS_ENABLED, get_file_audit_events, \
     get_file_update_events, get_perm_audit_events, \
-    is_pro_version, generate_file_audit_event_type
+    generate_file_audit_event_type
 from seahub.utils.timeutils import utc_to_local
 from seahub.utils.ms_excel import write_xls
 from seahub.settings import SITE_ROOT
@@ -81,10 +81,6 @@ def sys_log_file_audit_export_excel(request):
     if not next_page:
         next_page = SITE_ROOT
 
-    if not is_pro_version():
-        messages.error(request, _('Failed to export excel, this feature is only in professional version.'))
-        return HttpResponseRedirect(next_page)
-
     start = request.GET.get('start', None)
     end = request.GET.get('end', None)
     if not check_time_period_valid(start, end):
@@ -138,10 +134,6 @@ def sys_log_file_update_export_excel(request):
     if not next_page:
         next_page = SITE_ROOT
 
-    if not is_pro_version():
-        messages.error(request, _('Failed to export excel, this feature is only in professional version.'))
-        return HttpResponseRedirect(next_page)
-
     start = request.GET.get('start', None)
     end = request.GET.get('end', None)
     if not check_time_period_valid(start, end):
@@ -192,10 +184,6 @@ def sys_log_perm_audit_export_excel(request):
     next_page = request.META.get('HTTP_REFERER', None)
     if not next_page:
         next_page = SITE_ROOT
-
-    if not is_pro_version():
-        messages.error(request, _('Failed to export excel, this feature is only in professional version.'))
-        return HttpResponseRedirect(next_page)
 
     start = request.GET.get('start', None)
     end = request.GET.get('end', None)

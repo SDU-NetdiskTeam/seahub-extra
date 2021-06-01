@@ -3024,6 +3024,22 @@ CREATE TABLE `workspaces` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OfflineDownloadRecord` (
+  `odr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `repo_id` varchar(36) NOT NULL,
+  `path` TEXT NOT NULL,
+  `url` TEXT NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `timestamp` datetime(6) NOT NULL,
+  `size` BigInt NOT NULL,
+  `status` SmallInt NOT NULL,
+  `comment` TEXT NOT NULL,
+  PRIMARY KEY (`odr_id`),
+  UNIQUE KEY `owner` (`odr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -67,7 +67,7 @@ def login(request, next_page=None, required=False):
     if isinstance(request.user.is_authenticated, bool_type):
         is_user_authenticated = request.user.is_authenticated
     else:
-        is_user_authenticated = request.user.is_authenticated
+        is_user_authenticated = request.user.is_authenticated()
 
     if is_user_authenticated:
         if settings.CAS_LOGGED_MSG is not None:

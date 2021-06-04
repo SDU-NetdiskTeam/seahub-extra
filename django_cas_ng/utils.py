@@ -38,10 +38,14 @@ def get_redirect_url(request):
 def get_service_url(request, redirect_to=None):
     """Generates application django service URL for CAS"""
     if hasattr(django_settings, 'CAS_ROOT_PROXIED_AS'):
-        service = django_settings.CAS_ROOT_PROXIED_AS + '/' + request.path
+        middle_additive = '/' if \
+            not (request.path.startswith('/') or django_settings.CAS_ROOT_PROXIED_AS.endswith('/')) else ''
+        service = django_settings.CAS_ROOT_PROXIED_AS + middle_additive + request.path
     else:
         protocol = get_protocol(request)
         host = request.get_host()
+        if request.get_port() != '80' and request.get_port() != '443':
+            host = host + ':' + request.get_port()
         service = urllib_parse.urlunparse(
             (protocol, host, request.path, '', '', ''),
         )
